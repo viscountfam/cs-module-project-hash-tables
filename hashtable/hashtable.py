@@ -20,9 +20,10 @@ class HashTable:
     Implement this.
     """
 
-    def __init__(self, capacity):
+    def __init__(self, capacity=8):
         # Your code here
-
+        self.capacity = capacity
+        self.table = [[] for i in range(self.capacity)]
 
     def get_num_slots(self):
         """
@@ -35,7 +36,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
-
+        return self.capacity
 
     def get_load_factor(self):
         """
@@ -44,7 +45,11 @@ class HashTable:
         Implement this.
         """
         # Your code here
-
+        count = 0
+        for index in self.table:
+            if index:
+                count += 1
+        return count/self.get_num_slots()
 
     def fnv1(self, key):
         """
@@ -56,6 +61,7 @@ class HashTable:
         # Your code here
 
 
+
     def djb2(self, key):
         """
         DJB2 hash, 32-bit
@@ -63,6 +69,10 @@ class HashTable:
         Implement this, and/or FNV-1.
         """
         # Your code here
+        hash = 5381
+        for x in key:
+            hash = (hash * 33) + ord(x)
+        return hash
 
 
     def hash_index(self, key):
@@ -82,6 +92,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        self.table[self.hash_index(key)].append((key, value))
 
 
     def delete(self, key):
@@ -93,6 +104,11 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        
+        if self.table[self.hash_index(key)]:
+            self.table[self.hash_index(key)] = None
+        else:
+            print("There is no value stored here")
 
 
     def get(self, key):
@@ -104,6 +120,10 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        for k,v in self.table[self.hash_index(key)]:
+            if k == key:
+                return v
+        return None
 
 
     def resize(self, new_capacity):
@@ -114,6 +134,26 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        # create a new table
+        newTable = [[] for i in range(self.capacity * 2)]
+        # loop through the old table
+        for element in self.table:
+            # if the array is populated
+            if element:
+                # loop through those values and rehash them
+                for key, value in element:
+                    idx = self.hash_index(key)
+                    if newTable[idx]:
+                        newTable.append(key, value)
+                    else:
+                        newTable[idx].append(key, value)
+                
+        self.table = newTable
+        self.capacity = self.capacity * 2
+                
+            
+
+
 
 
 
