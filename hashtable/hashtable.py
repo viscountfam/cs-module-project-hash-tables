@@ -330,21 +330,23 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        temp = []
         # create a new table
-        newTable = [None for i in range(self.capacity)]
+        newTable = [None for i in range(self.capacity * 2)]
         # loop through the old table
         for element in self.table:
             # if the array is populated
             if element:
-                # loop through those values and rehash them
+                # loop through those key and values storing them
                     current = element.head
                     while current is not None:
-                        newTable.put(element.key, element.value)
-                        current = current.next
-                    
-                
+                        temp.append([current.key, current.value])
+                        current = current.next        
         self.table = newTable
         self.capacity = self.capacity * 2
+        # put those stored values back into the hash table
+        for item in temp:
+            self.put(item[0], item[1])
                 
             
 # hashed = HashTable(10)
@@ -380,14 +382,14 @@ if __name__ == "__main__":
         print(ht.get(f"line_{i}"))
 
     # # Test resizing
-    # old_capacity = ht.get_num_slots()
-    # ht.resize(ht.capacity * 2)
-    # new_capacity = ht.get_num_slots()
+    old_capacity = ht.get_num_slots()
+    ht.resize(ht.capacity * 2)
+    new_capacity = ht.get_num_slots()
 
-    # print(f"\nResized from {old_capacity} to {new_capacity}.\n")
+    print(f"\nResized from {old_capacity} to {new_capacity}.\n")
 
-    # # Test if data intact after resizing
-    # for i in range(1, 13):
-    #     print(ht.get(f"line_{i}"))
+    # Test if data intact after resizing
+    for i in range(1, 13):
+        print(ht.get(f"line_{i}"))
 
-    # print("")
+    print("")
