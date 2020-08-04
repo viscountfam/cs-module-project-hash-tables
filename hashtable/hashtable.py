@@ -54,7 +54,7 @@ class DoublyLinkedList:
 
     def add_to_tail(self, key, value):
         # create instance of ListNode with a value
-        new_list_node = HashTableEntry(value)
+        new_list_node = HashTableEntry(key, value)
         # increment the DLL length attribute
         self.length += 1
         # check to see is DLL is empty
@@ -143,10 +143,10 @@ class DoublyLinkedList:
 
         while current is not None:
             if current.key == key:
-                return current
+                return current.value
             current = current.next
         
-        return current
+        return 
     
     def update_or_insert_at_head(self, key, value):
         current = self.head
@@ -249,9 +249,8 @@ class HashTable:
         """
         # Your code here
         hash_var = 5381
-        stringbytes = key.encode()
-        for x in stringbytes:
-            hash_var = (hash * 33) + ord(x)
+        for x in key:
+            hash_var = (hash_var * 33) + ord(x)
         return hash_var
 
 
@@ -318,7 +317,7 @@ class HashTable:
             elif self.table[self.hash_index(key)].tail == key:
                 return self.table[self.hash_index(key)].tail
             else:
-                self.table[self.hash_index(key)].find(key)
+                return self.table[self.hash_index(key)].find(key)
         else:
             return None
 
@@ -348,10 +347,15 @@ class HashTable:
         self.capacity = self.capacity * 2
                 
             
-
-
-
-
+# hashed = HashTable(10)
+# hashed.put("Name", "Michael Famurewa")
+# print(hashed.get("Name"))
+# hashed.put("Name", "Michael Jordan")
+# print(hashed.get("Name"))
+# hashed.put("fruit", "Apples")
+# print(hashed.get("fruit"))
+# hashed.put("watch", "this")
+# print(hashed.table)
 
 if __name__ == "__main__":
     ht = HashTable(8)
@@ -375,15 +379,15 @@ if __name__ == "__main__":
     for i in range(1, 13):
         print(ht.get(f"line_{i}"))
 
-    # Test resizing
-    old_capacity = ht.get_num_slots()
-    ht.resize(ht.capacity * 2)
-    new_capacity = ht.get_num_slots()
+    # # Test resizing
+    # old_capacity = ht.get_num_slots()
+    # ht.resize(ht.capacity * 2)
+    # new_capacity = ht.get_num_slots()
 
-    print(f"\nResized from {old_capacity} to {new_capacity}.\n")
+    # print(f"\nResized from {old_capacity} to {new_capacity}.\n")
 
-    # Test if data intact after resizing
-    for i in range(1, 13):
-        print(ht.get(f"line_{i}"))
+    # # Test if data intact after resizing
+    # for i in range(1, 13):
+    #     print(ht.get(f"line_{i}"))
 
-    print("")
+    # print("")
