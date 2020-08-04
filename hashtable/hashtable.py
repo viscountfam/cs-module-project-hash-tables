@@ -23,7 +23,7 @@ class HashTable:
     def __init__(self, capacity=8):
         # Your code here
         self.capacity = capacity
-        self.table = [[] for i in range(self.capacity)]
+        self.table = [None for i in range(self.capacity)]
 
     def get_num_slots(self):
         """
@@ -92,7 +92,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        self.table[self.hash_index(key)].append((key, value))
+        self.table[self.hash_index(key)] = key, value
 
 
     def delete(self, key):
@@ -106,7 +106,9 @@ class HashTable:
         # Your code here
         
         if self.table[self.hash_index(key)]:
+            deleted = self.table[self.hash_index(key)]
             self.table[self.hash_index(key)] = None
+            return deleted
         else:
             print("There is no value stored here")
 
@@ -120,10 +122,10 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        for k,v in self.table[self.hash_index(key)]:
-            if k == key:
-                return v
-        return None
+        if self.table[self.hash_index(key)]:
+            return self.table[self.hash_index(key)][1]
+        else:
+            return None
 
 
     def resize(self, new_capacity):
@@ -135,18 +137,13 @@ class HashTable:
         """
         # Your code here
         # create a new table
-        newTable = [[] for i in range(self.capacity * 2)]
+        newTable = [None for i in range(self.capacity * 2)]
         # loop through the old table
         for element in self.table:
             # if the array is populated
             if element:
                 # loop through those values and rehash them
-                for key, value in element:
-                    idx = self.hash_index(key)
-                    if newTable[idx]:
-                        newTable.append(key, value)
-                    else:
-                        newTable[idx].append(key, value)
+                    newTable[self.hash_index(element[0])] = element[0], element[1]
                 
         self.table = newTable
         self.capacity = self.capacity * 2
