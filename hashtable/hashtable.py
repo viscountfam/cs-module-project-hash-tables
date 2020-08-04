@@ -59,6 +59,18 @@ class HashTable:
         """
 
         # Your code here
+        FNV_offset_basis = 14695981039346656037
+        FNV_prime = 1099511628211
+
+        hashed_var = FNV_offset_basis
+
+        string_bytes = key.encode()
+
+        for b in string_bytes:
+            hashed_var = hashed_var * FNV_prime
+            hashed_var = hashed_var ^ b
+        
+        return hashed_var
 
 
 
@@ -69,10 +81,11 @@ class HashTable:
         Implement this, and/or FNV-1.
         """
         # Your code here
-        hash = 5381
-        for x in key:
-            hash = (hash * 33) + ord(x)
-        return hash
+        hash_var = 5381
+        stringbytes = key.encode()
+        for x in stringbytes:
+            hash_var = (hash * 33) + ord(x)
+        return hash_var
 
 
     def hash_index(self, key):
@@ -123,6 +136,7 @@ class HashTable:
         """
         # Your code here
         if self.table[self.hash_index(key)]:
+            print(self.table[self.hash_index(key)][1])
             return self.table[self.hash_index(key)][1]
         else:
             return None
