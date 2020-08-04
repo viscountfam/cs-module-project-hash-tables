@@ -191,7 +191,7 @@ class HashTable:
         # Your code here
         self.capacity = capacity
         self.table = [None for i in range(self.capacity)]
-
+        self.load = 0
     def get_num_slots(self):
         """
         Return the length of the list you're using to hold the hash
@@ -216,6 +216,7 @@ class HashTable:
         for index in self.table:
             if index:
                 count += 1
+        print(self.load/self.get_num_slots())
         return count/self.get_num_slots()
 
     def fnv1(self, key):
@@ -239,7 +240,17 @@ class HashTable:
         
         return hashed_var
 
-
+    def should_resize(self):
+        if self.get_load_factor() >= .70:
+           self.resize(self.capacity * 2)
+        elif self.get_load_factor() <= .20:
+            new_capacity = self.capacity/2
+            if self.capacity/2 < 8:
+                new_capacity = 8
+            
+            self.resize(new_capacity)
+        else:
+            return "Resize not yet necessary"
 
     def djb2(self, key):
         """
@@ -273,6 +284,7 @@ class HashTable:
         # Your code here
         if self.table[self.hash_index(key)] is None:
             self.table[self.hash_index(key)] = DoublyLinkedList(HashTableEntry(key, value))
+            self.load += 1
         else:
             if self.table[self.hash_index(key)].find(key):
                 self.table[self.hash_index(key)].update_or_insert_at_tail(key, value)
