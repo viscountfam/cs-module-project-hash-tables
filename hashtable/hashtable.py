@@ -332,7 +332,7 @@ class HashTable:
         # Your code here
         temp = []
         # create a new table
-        newTable = [None for i in range(self.capacity * 2)]
+        newTable = [None for i in range(new_capacity)]
         # loop through the old table
         for element in self.table:
             # if the array is populated
@@ -343,7 +343,7 @@ class HashTable:
                         temp.append([current.key, current.value])
                         current = current.next        
         self.table = newTable
-        self.capacity = self.capacity * 2
+        self.capacity = new_capacity
         # put those stored values back into the hash table
         for item in temp:
             self.put(item[0], item[1])
