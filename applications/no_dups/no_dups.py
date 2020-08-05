@@ -1,8 +1,11 @@
 def no_dups(s):
     # Your code here
-
-
-
+    wordarr = s.split()
+    # splitting the string at space
+    # 
+    final = sorted(set(wordarr), key = wordarr.index)
+    return " ".join(final)
+    
 if __name__ == "__main__":
     print(no_dups(""))
     print(no_dups("hello"))

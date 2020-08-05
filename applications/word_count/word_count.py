@@ -1,5 +1,16 @@
+import re
 def word_count(s):
-    # Your code here
+    words = re.split(r'\s\W*|\W*\s|\W*$|^\W*', s)
+    counts = {}
+    for w in words:
+       if w:
+           w = w.lower()
+           if w in counts:
+               counts[w] += 1
+           else:
+                counts[w] = 1
+    return counts
+  
 
 
 
