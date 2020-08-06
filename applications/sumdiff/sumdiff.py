@@ -21,19 +21,19 @@ def sumdiff(q):
     # for key, value in fxtable.items():
     sumtable = {}
     for key, value in fxtable.items():
-        added = []
+        added = {}
         for i in range(len(q)):
             if q[i] != key:
-                added.append((q[i], value + f(q[i])))
+                added[q[i]] = value + f(q[i])
         sumtable[key] = added
     
     # find a way to calculate the sum of f(c) - f(d) for every element and them in a dictionary
     difftable = {}
     for key, value in fxtable.items():
-        added = []
+        added = {}
         for i in range(len(q)):
             if q[i] != key:
-                added.append((q[i], value - f(q[i])))
+                added[q[i]] = value - f(q[i])
         difftable[key] = added
 
     # return the keys where the two dictionaries hold the same value 
