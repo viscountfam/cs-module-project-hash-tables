@@ -10,7 +10,7 @@ def histo(s):
         else:
             count[i.lower()] = "#"
     
-    for key, value in count.items():
+    for key, value in sorted(count.items()):
         print(f"{key}        {value}")
     # return count
     

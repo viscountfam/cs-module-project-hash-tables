@@ -22,8 +22,7 @@ z = 800
 Use a hashtable to make sure your solution completes before the universe
 ends.
 
-Hint: Va Clguba, n qvpg xrl pna or nal vzzhgnoyr glcr... vapyhqvat n
-ghcyr.
+Hint: 
 
 (That's encrypted with ROT13--Google `rot13 decoder` to decode it if you
 want the hint.)
