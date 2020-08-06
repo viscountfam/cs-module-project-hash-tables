@@ -1,9 +1,10 @@
 # Your code here
 
 
+cache = {}
 def expensive_seq(x, y, z):
     # Your code here
-    cache = {}
+    global cache
     if x <= 0:
         return y + z
     if (x, y, z) not in cache:
