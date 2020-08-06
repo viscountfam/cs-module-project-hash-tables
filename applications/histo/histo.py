@@ -2,17 +2,19 @@
 # Your code here
 def histo(s):
     words = s.split
-    # count = {}
+    count = {}
 
-    # for i in words():
-    #     if i in count:
-    #         count[i] += "#"
-    #     else:
-    #         count[i] = "#"
+    for i in words():
+        if i.lower() in count:
+            count[i.lower()] += "#"
+        else:
+            count[i.lower()] = "#"
     
-    return s
+    for key, value in count.items():
+        print(f"{key}        {value}")
+    # return count
     
 
     
-f = open("applications\histo\README.md", "r")
+f = open("applications\histo\Robin.txt", "r")
 print(histo(f.read()))
