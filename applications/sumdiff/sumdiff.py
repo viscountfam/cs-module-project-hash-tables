@@ -15,18 +15,28 @@ def f(x):
 def sumdiff(q):
 
     # create a table where each elements f(x) is held
-    fxtable = [f(x) for x in q]
+    fxtable = {x:f(x) for x in q}
     
     # find a way to calculate the sum of f(a) + f(b) for every element and store them in a dictionary
     # for key, value in fxtable.items():
-   
-
+    sumtable = {}
+    for key, value in fxtable.items():
+        added = []
+        for i in range(len(q)):
+            if q[i] != key:
+                added.append((q[i], value + f(q[i])))
+        sumtable[key] = added
     
-
-
     # find a way to calculate the sum of f(c) - f(d) for every element and them in a dictionary
+    difftable = {}
+    for key, value in fxtable.items():
+        added = []
+        for i in range(len(q)):
+            if q[i] != key:
+                added.append((q[i], value - f(q[i])))
+        difftable[key] = added
 
     # return the keys where the two dictionaries hold the same value 
-    return sumtab
+    return difftable
 
 print(sumdiff(q))
